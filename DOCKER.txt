@@ -1,0 +1,99 @@
+Images: can be looked as a DVD which contains something in it.
+Containers: You can download the content in the DVD in your system, so your system is the container.
+
+docker ps: it lists all the containers
+
+Suppose we downloaded the image on the docker but we haven't installed it on any of the machine,
+so we don't have any conatiner: hence (docker ps) will show no containers.
+
+## docker run -it:  allocates a pseudo terminal to the container
+-> I want to interact with the image, so just give me the terminal so that i can interact with this one
+
+## when you do: docker run and then docker ps: you will see the container it has
+
+## to stop the container: docker stop container_id 
+: you can get the container id from the docker ps command
+
+
+## docker default port: 4532
+## so everytime it will be run on the same port, so we will need to learn how to give this port
+paramter to avoid all the conflicts, it is called as port mapping
+
+
+## docker container ls -a : all the names of the container whether they are in the running mode or not
+
+
+## The difference between the VM and the docker:
+## docker runs the application on the top of your system, doesn't include the kernel
+## docker requires the minimal config require to run the application
+## and when you run the commands, it will interact with the host kernel to execute those
+and then it will move it to the container
+
+##########################################################
+
+## to remove all the stopped containers: docker container prune
+
+###########################################################
+
+Different ports for different versions: so how to approach all?
+Thats where port mapping comes into play
+## so say supppose there are various instances of the thing you want to run, and now you want to access their port
+## so while running the statement of run, use -p for specifying the port instead of using -d (detach mode)
+## just remeber that you will need to know the deafult port for each one of it: say for ex: mongodb and all
+
+#####################################################################################
+
+-> docker run --name my-mongodb -p 4000:27017 -d mongo  ----> on port 4000 on my machine with the default port of 27017 for mongodb also in detach mode
+
+#######################################################################################
+
+logs: if any sort of error are there or any sort of things you want to see, what actually is happening
+## docker logs container_id: -> you can get the container id from the docker ps
+## always go for docker id and not for the name
+
+##################################################################################################
+
+## fun part:
+
+mongo_express: an application that is containerized
+## now you want to connect it with mongo_db's container
+
+==> Mongo Express, also known as mongo-express, is a web-based MongoDB administration tool.
+It provides a graphical user interface (GUI) that allows users to interact with and manage 
+MongoDB databases through a web browser. This tool is particularly helpful for developers,
+administrators, or anyone who prefers a visual interface for working with MongoDB instead 
+of using the command-line interface
+
+
+### want to connect express and mongo db: both should be on the same network
+## docker network create mongo-network : create the network
+
+##################################################################################################
+
+docker compose: easy way to write in the yaml files instead of writing in the big format in 
+the command prompt
+
+-> using the docker compose, you don't ahve to create a new network for that
+-> by default docker compose automatically creates a new network and put all the containers in it
+
+##################################################################################################
+when you writing the yaml files: the order of execution is not given, the
+so it might be an issue since what should have been executed first, is executing last
+
+##################################################################################################
+
+The container is a detachable action, that means the container is a removable item
+-> In essence, Docker volumes provide a way for containers to store and share information 
+in a durable and consistent manner, ensuring that important data survives the lifecycle of the containers.
+
+=> 
+In layman's terms, think of a Docker volume as a special folder that allows Docker containers to 
+share and persist data. When you run a Docker container, it's like creating a little isolated world
+for your application to live in. However, once the container stops or gets removed, any data or changes
+made inside that container usually disappear.
+
+Volumes provide a solution to this challenge. They act like shared folders 
+that exist outside the containers. So, even if a container stops or is deleted,
+the data inside these volumes remains safe and can be used by other containers.
+
+###############################################################################
